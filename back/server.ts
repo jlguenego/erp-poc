@@ -1,13 +1,14 @@
-const express = require("express");
-const serveIndex = require("serve-index");
+import express from "express";
+import serveIndex from "serve-index";
 
 const app = express();
-const port = 3000;
-
+let port = 3000;
 app.use((req, res, next) => {
   console.log("req.url", req.url);
   next();
 });
+
+
 
 app.get("/now", (req, res) => {
   res.json({ date: new Date() });
