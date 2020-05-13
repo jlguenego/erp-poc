@@ -1,18 +1,11 @@
 import express from "express";
 import serveIndex from "serve-index";
+import { ws } from "./ws";
 
 const app = express();
-let port = 3000;
-app.use((req, res, next) => {
-  console.log("req.url", req.url);
-  next();
-});
+const port = 3000;
 
-
-
-app.get("/now", (req, res) => {
-  res.json({ date: new Date() });
-});
+app.use("/ws", ws);
 
 app.use(express.static("www"));
 app.use(serveIndex("www"));
