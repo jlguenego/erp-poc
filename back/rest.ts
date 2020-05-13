@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-export function exposeResource(app: Router, name: string, records: any[]) {
+export function exposeResource(app: Router, name: string, records: any[] = []) {
   let lastid = records.length;
   app.post(`/${name}`, (req, res) => {
     console.log("req.body", req.body);
