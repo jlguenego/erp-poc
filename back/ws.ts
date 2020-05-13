@@ -1,11 +1,12 @@
 import express from "express";
+import { exposeResource } from "./rest";
 const app = express.Router();
 
 app.use(express.json());
 
 app.get("/date", (req, res) => res.json({ date: new Date() }));
 
-const salaries = [
+exposeResource(app, "salarie", [
   {
     nom: "GUÉNÉGO",
     prenom: "Jean-Louis",
@@ -26,66 +27,12 @@ const salaries = [
     },
     id: 0,
   },
-];
+]);
 
-let lastid = 1;
-app.post("/salarie", (req, res) => {
-  console.log("req.body", req.body);
-  req.body.id = lastid;
-  lastid++;
-  salaries.push(req.body);
-  res.status(201).json(req.body);
-});
+exposeResource(app, "facture", []);
+exposeResource(app, "engin", []);
+exposeResource(app, "fournisseur", []);
+exposeResource(app, "client", []);
 
-app.get("/salarie", (req, res) => res.json(salaries));
-
-app.get("/salarie/:id", (req, res) => {
-  const salarie = salaries.find((s) => s.id === +req.params.id);
-  if (!salarie) {
-    return res.status(404).end();
-  }
-  res.json(salarie);
-});
-
-app.put("/salarie/:id", (req, res) => {
-  const salarie = req.body;
-  salarie.id = +req.params.id;
-  const index = salaries.findIndex((s) => s.id === +req.params.id);
-  if (index === -1) {
-    return res.status(404).end();
-  }
-  salaries.splice(index, 1, salarie);
-  res.status(204).end();
-});
-
-app.patch("/salarie/:id", (req, res) => {
-  const salarie = salaries.find((s) => s.id === +req.params.id);
-  if (!salarie) {
-    return res.status(404).end();
-  }
-  Object.keys(req.body).forEach((key) => (salarie[key] = req.body[key]));
-  res.status(204).end();
-});
-
-app.patch("/salarie", (req, res) => {
-  Object.keys(req.body).forEach((key) => {
-    salaries.forEach((s) => (s[key] = req.body[key]));
-  });
-  res.status(204).end();
-});
-
-app.delete("/salarie", (req, res) => {
-  salaries.length = 0;
-  res.status(204).end();
-});
-
-app.delete("/salarie/:id", (req, res) => {
-  const index = salaries.findIndex((s) => s.id === +req.params.id);
-  if (index === -1) {
-    return res.status(404).end();
-  }
-  salaries.splice(index, 1);
-  res.status(204).end();
-});
 
 export const ws = app;
