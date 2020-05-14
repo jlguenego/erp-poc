@@ -15,7 +15,7 @@ export function exposeMongoResource(
       const doc = await instance.save();
       res.status(201).json(req.body);
     } catch (err) {
-      console.error('err: ', err);
+      console.error("err: ", err);
       res.status(500).end();
     }
   });
@@ -26,19 +26,26 @@ export function exposeMongoResource(
       const results = await resource.find();
       return res.json(results);
     } catch (err) {
-      console.error('err: ', err);
+      console.error("err: ", err);
       res.status(500).end();
     }
-
   });
 
-  //   app.get(`/${name}/:id`, (req, res) => {
-  //     const item = records.find((s) => s.id === +req.params.id);
-  //     if (!item) {
-  //       return res.status(404).end();
-  //     }
-  //     res.json(item);
-  //   });
+  app.get(`/${name}/:id`, async (req, res) => {
+    try {
+      const result = await resource.findById(req.params.id);
+      if (result === null) {
+        return res.status(404).end();
+      }
+      return res.json(result);
+    } catch (err) {
+      if (err.name === "CastError") {
+        return res.status(400).end();
+      }
+      console.error("err: ", err);
+      res.status(500).end();
+    }
+  });
 
   //   app.put(`/${name}/:id`, (req, res) => {
   //     const item = req.body;
