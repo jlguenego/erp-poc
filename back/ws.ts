@@ -8,7 +8,4 @@ app.get("/date", (req, res) => res.json({ date: new Date() }));
 
 ["salarie", "facture", "engin"].forEach(name => exposeResource(app, name));
 
-
-
-
 export const ws = app;
