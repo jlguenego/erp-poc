@@ -6,6 +6,8 @@ export function exposeMongoResource(
   resource: Model<Document, {}>
 ) {
   const name = resource.modelName.toLowerCase();
+
+  // add a record
   app.post(`/${name}`, async (req, res) => {
     try {
       console.log("req.body", req.body);
@@ -13,11 +15,22 @@ export function exposeMongoResource(
       const doc = await instance.save();
       res.status(201).json(req.body);
     } catch (err) {
+      console.error('err: ', err);
       res.status(500).end();
     }
   });
 
-  //   app.get(`/${name}`, (req, res) => res.json(records));
+  // retrieve all
+  app.get(`/${name}`, async (req, res) => {
+    try {
+      const results = await resource.find();
+      return res.json(results);
+    } catch (err) {
+      console.error('err: ', err);
+      res.status(500).end();
+    }
+
+  });
 
   //   app.get(`/${name}/:id`, (req, res) => {
   //     const item = records.find((s) => s.id === +req.params.id);
