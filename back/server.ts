@@ -2,14 +2,7 @@ import express from "express";
 import serveIndex from "serve-index";
 import mongoose from "mongoose";
 import { ws } from "./ws";
-
-const app = express();
-const port = 3000;
-
-app.use("/ws", ws);
-
-app.use(express.static("www"));
-app.use(serveIndex("www"));
+import { Sequelize } from "sequelize";
 
 async function main() {
   try {
@@ -20,6 +13,26 @@ async function main() {
       serverSelectionTimeoutMS: 5000,
     });
     console.log("connected to mongo.");
+
+    console.log("about to connect to postgres...");
+    const sequelize = new Sequelize("mydb", "postgres", "admin", {
+      host: "localhost",
+      port: 5432,
+      dialect: "postgres",
+    });
+    await sequelize.authenticate();
+    console.log("connected to postgres.");
+
+    const app = express();
+    const port = 3000;
+
+    app.use("/ws", await ws(sequelize));
+    console.log("about to sync sequelize...");
+    await sequelize.sync({ force: false });
+    console.log("sync done...");
+
+    app.use(express.static("www"));
+    app.use(serveIndex("www"));
     app.listen(port, () =>
       console.log(`Example app listening at http://localhost:${port}`)
     );

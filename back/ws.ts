@@ -3,14 +3,22 @@ import { exposeResource } from "./rest";
 import "./rest-mongo";
 import { exposeMongoResource } from "./rest-mongo";
 import { Salarie } from "./model/Salarie";
-const app = express.Router();
+import { Sequelize } from "sequelize/types";
+import { chantier } from "./model-sequelize/Chantier";
+import { exposeSequelizeResource } from "./rest-sequelize";
 
-app.use(express.json());
+export const ws = async function (sequelize: Sequelize) {
+  const app = express.Router();
 
-app.get("/date", (req, res) => res.json({ date: new Date() }));
+  app.use(express.json());
 
-["facture", "engin"].forEach((name) => exposeResource(app, name));
+  app.get("/date", (req, res) => res.json({ date: new Date() }));
 
-exposeMongoResource(app, Salarie);
+  ["facture", "engin"].forEach((name) => exposeResource(app, name));
 
-export const ws = app;
+  exposeMongoResource(app, Salarie);
+
+  exposeSequelizeResource(sequelize, app, chantier);
+
+  return app;
+};
