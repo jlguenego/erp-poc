@@ -1,4 +1,4 @@
-const { Sequelize, Model, DataTypes } = require("sequelize");
+import { Sequelize, Model, DataTypes } from "sequelize";
 
 const sequelize = new Sequelize("mydb", "postgres", "admin", {
   host: "localhost",
@@ -16,17 +16,21 @@ User.init(
 );
 
 async function main() {
-  await sequelize.sync({ force: false });
+  try {
+    await sequelize.sync({ force: false });
 
-  const jane = await User.create({
-    username: "janedoe",
-    birthday: new Date(1980, 6, 20),
-  });
+    const jane = await User.create({
+      username: "janedoe",
+      birthday: new Date(1980, 6, 20),
+    });
 
-  console.log(jane.toJSON());
+    console.log(jane.toJSON());
 
-  await sequelize.close();
-  console.log("closed.");
+    await sequelize.close();
+    console.log("closed.");
+  } catch (e) {
+    console.log("e: ", e);
+  }
 }
 
 main();
