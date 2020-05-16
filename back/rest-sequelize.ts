@@ -50,41 +50,40 @@ export function exposeSequelizeResource(
     }
   });
 
-  // app.put(`/${name}/:id`, async (req, res) => {
-  //   try {
-  //     const item = await resource.findById(req.params.id);
-  //     if (item === null) {
-  //       return res.status(404).end();
-  //     }
-  //     await resource.replaceOne({ _id: req.params.id }, req.body);
-  //     res.status(204).end();
-  //   } catch (err) {
-  //     if (err.name === "CastError") {
-  //       return res.status(400).end();
-  //     }
-  //     if (err.name === "StrictErrorMode") {
-  //       return res.status(400).end();
-  //     }
-  //     console.error("err: ", err);
-  //     res.status(500).end();
-  //   }
-  // });
+  app.put(`/${name}/:id`, async (req, res) => {
+    try {
+      const item = await resource.modelClass.findByPk(req.params.id);
+      if (item === null) {
+        return res.status(404).end();
+      }
+      await resource.modelClass.destroy({
+        where: {
+          id: req.params.id
+        }
+      });
+      req.body.id = req.params.id;
+      await resource.modelClass.upsert(req.body);
+      res.status(204).end();
+    } catch (err) {
+      console.error("err: ", err);
+      res.status(500).end();
+    }
+  });
 
-  // app.patch(`/${name}/:id`, async (req, res) => {
-  //   try {
-  //     const result = await resource.findByIdAndUpdate(req.params.id, req.body);
-  //     if (result === null) {
-  //       return res.status(404).end();
-  //     }
-  //     res.status(204).end();
-  //   } catch (err) {
-  //     if (err.name === "CastError") {
-  //       return res.status(400).end();
-  //     }
-  //     console.error("err: ", err);
-  //     res.status(500).end();
-  //   }
-  // });
+  app.patch(`/${name}/:id`, async (req, res) => {
+    try {
+      const item = await resource.modelClass.findByPk(req.params.id);
+      if (item === null) {
+        return res.status(404).end();
+      }
+      req.body.id = req.params.id;
+      const result = await resource.modelClass.upsert(req.body);
+      res.status(204).end();
+    } catch (err) {
+      console.error("err: ", err);
+      res.status(500).end();
+    }
+  });
 
   // app.patch(`/${name}`, async (req, res) => {
   //   try {
