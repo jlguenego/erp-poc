@@ -15,7 +15,7 @@ export function exposeSequelizeResource(
   app.post(`/${name}`, async (req, res) => {
     try {
       console.log("req.body", req.body);
-      const result = await (resource.modelClass as any).create(req.body);
+      const result = await resource.modelClass.create(req.body);
       res.status(201).json(result);
     } catch (err) {
       console.error("err: ", err);
@@ -24,31 +24,31 @@ export function exposeSequelizeResource(
   });
 
   // retrieve all
-  // app.get(`/${name}`, async (req, res) => {
-  //   try {
-  //     const results = await resource.find();
-  //     return res.json(results);
-  //   } catch (err) {
-  //     console.error("err: ", err);
-  //     res.status(500).end();
-  //   }
-  // });
+  app.get(`/${name}`, async (req, res) => {
+    try {
+      const results = await resource.modelClass.findAll();
+      return res.json(results);
+    } catch (err) {
+      console.error("err: ", err);
+      res.status(500).end();
+    }
+  });
 
-  // app.get(`/${name}/:id`, async (req, res) => {
-  //   try {
-  //     const result = await resource.findById(req.params.id);
-  //     if (result === null) {
-  //       return res.status(404).end();
-  //     }
-  //     return res.json(result);
-  //   } catch (err) {
-  //     if (err.name === "CastError") {
-  //       return res.status(400).end();
-  //     }
-  //     console.error("err: ", err);
-  //     res.status(500).end();
-  //   }
-  // });
+  app.get(`/${name}/:id`, async (req, res) => {
+    try {
+      const result = await resource.modelClass.findByPk(req.params.id);
+      if (result === null) {
+        return res.status(404).end();
+      }
+      return res.json(result);
+    } catch (err) {
+      if (err.name === "CastError") {
+        return res.status(400).end();
+      }
+      console.error("err: ", err);
+      res.status(500).end();
+    }
+  });
 
   // app.put(`/${name}/:id`, async (req, res) => {
   //   try {
