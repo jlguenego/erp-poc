@@ -98,15 +98,15 @@ export function exposeSequelizeResource(
     }
   });
 
-  // app.delete(`/${name}`, async (req, res) => {
-  //   try {
-  //     await resource.deleteMany({});
-  //     res.status(204).end();
-  //   } catch (err) {
-  //     console.error("err: ", err);
-  //     res.status(500).end();
-  //   }
-  // });
+  app.delete(`/${name}`, async (req, res) => {
+    try {
+      await resource.modelClass.destroy({ where: {} });
+      res.status(204).end();
+    } catch (err) {
+      console.error("err: ", err);
+      res.status(500).end();
+    }
+  });
 
   // app.delete(`/${name}/:id`, async (req, res) => {
   //   try {
