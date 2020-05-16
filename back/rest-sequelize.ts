@@ -58,8 +58,8 @@ export function exposeSequelizeResource(
       }
       await resource.modelClass.destroy({
         where: {
-          id: req.params.id
-        }
+          id: req.params.id,
+        },
       });
       req.body.id = req.params.id;
       await resource.modelClass.upsert(req.body);
@@ -85,18 +85,18 @@ export function exposeSequelizeResource(
     }
   });
 
-  // app.patch(`/${name}`, async (req, res) => {
-  //   try {
-  //     await resource.updateMany({}, req.body);
-  //     res.status(204).end();
-  //   } catch (err) {
-  //     if (err.name === "StrictErrorMode") {
-  //       return res.status(400).end();
-  //     }
-  //     console.error("err: ", err);
-  //     res.status(500).end();
-  //   }
-  // });
+  app.patch(`/${name}`, async (req, res) => {
+    try {
+      await resource.modelClass.update(req.body, { where: {} });
+      res.status(204).end();
+    } catch (err) {
+      if (err.name === "StrictErrorMode") {
+        return res.status(400).end();
+      }
+      console.error("err: ", err);
+      res.status(500).end();
+    }
+  });
 
   // app.delete(`/${name}`, async (req, res) => {
   //   try {
