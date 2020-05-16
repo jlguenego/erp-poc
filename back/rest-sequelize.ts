@@ -108,19 +108,16 @@ export function exposeSequelizeResource(
     }
   });
 
-  // app.delete(`/${name}/:id`, async (req, res) => {
-  //   try {
-  //     const result = await resource.findByIdAndDelete(req.params.id);
-  //     if (result === null) {
-  //       return res.status(404).end();
-  //     }
-  //     res.status(204).end();
-  //   } catch (err) {
-  //     if (err.name === "CastError") {
-  //       return res.status(400).end();
-  //     }
-  //     console.error("err: ", err);
-  //     res.status(500).end();
-  //   }
-  // });
+  app.delete(`/${name}/:id`, async (req, res) => {
+    try {
+      await resource.modelClass.destroy({ where: { id: req.params.id } });
+      res.status(204).end();
+    } catch (err) {
+      if (err.name === "CastError") {
+        return res.status(400).end();
+      }
+      console.error("err: ", err);
+      res.status(500).end();
+    }
+  });
 }
