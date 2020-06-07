@@ -1,2 +1,7 @@
 node_modules/
 /dist
+
+# pkg (building OS native executable)
+back-linux
+back-macos
+back-win.exe
