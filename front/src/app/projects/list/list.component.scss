@@ -1,0 +1,29 @@
+.buttons {
+  display: flex;
+  padding: 0.5em 0;
+
+  button {
+    margin-right: 0.3em;
+  }
+}
+
+caption {
+  display: none;
+}
+
+table {
+  border: 0.1em solid #eee;
+  border-collapse: collapse;
+  max-width: 100%;
+}
+
+thead {
+  background: #eee;
+}
+
+td, th {
+  padding: 0.5em;
+  text-align: left;
+}
+
+
