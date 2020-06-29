@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Project } from '../interfaces/project';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
-  projects: Project[] = this.getProjects();
-  protected onRefreshFn: () => void;
+  projects$ = new BehaviorSubject<Project[]>(this.getProjects());
 
   constructor() {
-    console.log('start constructor', this.projects);
+    this.projects$.subscribe((projects) => {
+      localStorage.setItem('projects', JSON.stringify(projects));
+    });
   }
 
   getProjects(): Project[] {
@@ -22,27 +24,21 @@ export class ProjectService {
     return projects;
   }
 
-  save() {
-    localStorage.setItem('projects', JSON.stringify(this.projects));
-  }
-
   add(project: Project): void {
-    this.projects.push(project);
-    this.save();
+    const projects = this.projects$.value;
+    projects.push(project);
+    this.projects$.next(projects);
   }
 
   remove(selectedProjects: Project[]) {
+    const projects = this.projects$.value;
     selectedProjects.forEach((p) => {
-      const index = this.projects.findIndex((pr) => pr === p);
+      const index = projects.findIndex((pr) => pr === p);
       if (index === -1) {
         return;
       }
-      this.projects.splice(index, 1);
+      projects.splice(index, 1);
     });
-    this.save();
-  }
-
-  onRefresh(onRefreshFn: () => void) {
-    this.onRefreshFn = onRefreshFn;
+    this.projects$.next(projects);
   }
 }

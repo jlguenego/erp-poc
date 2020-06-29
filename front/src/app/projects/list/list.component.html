@@ -21,7 +21,7 @@
         <tr
           [class.selected]="selectedProjects.includes(p)"
           (click)="toggle(p)"
-          *ngFor="let p of projectService.projects"
+          *ngFor="let p of projectService.projects$ | async"
         >
           <td>{{ p.code }}</td>
           <td>{{ p.label | ellipsis: 15 }}</td>

@@ -17,9 +17,7 @@ export class HttpProjectService extends ProjectService {
     this.http.get<Project[]>('http://localhost:3000/ws/chantier').subscribe({
       next: (data) => {
         console.log('data: ', data);
-        this.projects = data;
-        this.save();
-        this.onRefreshFn();
+        this.projects$.next(data);
       },
       error: (err) => {
         console.log('err: ', err);
@@ -49,8 +47,8 @@ export class HttpProjectService extends ProjectService {
   }
 
   remove(selectedProjects: Project[]) {
-    super.remove(selectedProjects);
     const ids = selectedProjects.map((p) => p.id);
+    super.remove(selectedProjects);
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

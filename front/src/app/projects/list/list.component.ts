@@ -17,7 +17,7 @@ export class ListComponent implements OnInit {
   constructor(public projectService: ProjectService) {}
 
   ngOnInit(): void {
-    this.projectService.onRefresh(() => {
+    this.projectService.projects$.subscribe((projects) => {
       this.selectedProjects.length = 0;
     });
   }
