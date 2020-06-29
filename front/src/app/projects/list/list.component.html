@@ -4,6 +4,7 @@
     <div class="buttons">
       <button>Rafraichir</button>
       <button routerLink="/chantiers/nouveau">Ajouter</button>
+      <button *ngIf="selectedProjects.length > 0" (click)="remove()">Supprimer</button>
     </div>
     <table>
       <caption>
@@ -17,9 +18,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let p of projectService.projects">
+        <tr
+          [class.selected]="selectedProjects.includes(p)"
+          (click)="toggle(p)"
+          *ngFor="let p of projectService.projects"
+        >
           <td>{{ p.code }}</td>
-          <td>{{ p.label | ellipsis : 15 }}</td>
+          <td>{{ p.label | ellipsis: 15 }}</td>
           <td>{{ p.status }}</td>
         </tr>
       </tbody>

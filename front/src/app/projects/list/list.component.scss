@@ -12,13 +12,13 @@ caption {
 }
 
 table {
-  border: 0.1em solid #ccc;
+  border: 0.1em solid #bbb;
   border-collapse: collapse;
   max-width: 100%;
 }
 
 thead {
-  background: #ccc;
+  background: #bbb;
 }
 
 td, th {
@@ -32,6 +32,10 @@ tbody tr:nth-child(even) {
 
 tbody tr:hover {
   background: #ddd;
+}
+
+tbody tr.selected {
+  background: #ccc;
 }
 
 
