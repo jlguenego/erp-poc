@@ -13,7 +13,7 @@ export function exposeMongoResource(
       console.log("req.body", req.body);
       const instance = new resource(req.body);
       const doc = await instance.save();
-      res.status(201).json(req.body);
+      res.status(201).json(doc);
     } catch (err) {
       if (err.name === "StrictModeError") {
         return res.status(400).end();
@@ -26,7 +26,7 @@ export function exposeMongoResource(
   // retrieve all
   app.get(`/${name}`, async (req, res) => {
     try {
-      const results = await resource.find();
+      const results = await resource.find().exec();
       return res.json(results);
     } catch (err) {
       console.error("err: ", err);
@@ -36,7 +36,7 @@ export function exposeMongoResource(
 
   app.get(`/${name}/:id`, async (req, res) => {
     try {
-      const result = await resource.findById(req.params.id);
+      const result = await resource.findById(req.params.id).exec();
       if (result === null) {
         return res.status(404).end();
       }
@@ -52,11 +52,11 @@ export function exposeMongoResource(
 
   app.put(`/${name}/:id`, async (req, res) => {
     try {
-      const item = await resource.findById(req.params.id);
+      const item = await resource.findById(req.params.id).exec();
       if (item === null) {
         return res.status(404).end();
       }
-      await resource.replaceOne({ _id: req.params.id }, req.body);
+      await resource.replaceOne({ _id: req.params.id }, req.body).exec();
       res.status(204).end();
     } catch (err) {
       if (err.name === "CastError") {
@@ -72,7 +72,7 @@ export function exposeMongoResource(
 
   app.patch(`/${name}/:id`, async (req, res) => {
     try {
-      const result = await resource.findByIdAndUpdate(req.params.id, req.body);
+      const result = await resource.findByIdAndUpdate(req.params.id, req.body).exec();
       if (result === null) {
         return res.status(404).end();
       }
@@ -88,7 +88,7 @@ export function exposeMongoResource(
 
   app.patch(`/${name}`, async (req, res) => {
     try {
-      await resource.updateMany({}, req.body);
+      await resource.updateMany({}, req.body).exec();
       res.status(204).end();
     } catch (err) {
       if (err.name === "StrictErrorMode") {
@@ -101,7 +101,7 @@ export function exposeMongoResource(
 
   app.delete(`/${name}`, async (req, res) => {
     try {
-      await resource.deleteMany({});
+      await resource.deleteMany({}).exec();
       res.status(204).end();
     } catch (err) {
       console.error("err: ", err);
@@ -111,7 +111,7 @@ export function exposeMongoResource(
 
   app.delete(`/${name}/:id`, async (req, res) => {
     try {
-      const result = await resource.findByIdAndDelete(req.params.id);
+      const result = await resource.findByIdAndDelete(req.params.id).exec();
       if (result === null) {
         return res.status(404).end();
       }
