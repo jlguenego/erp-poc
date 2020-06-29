@@ -20,7 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
     ProjectsModule,
     HttpClientModule,
   ],
-  providers: [{ provide: ProjectService, useClass: HttpProjectService }],
+  providers: [
+    // { provide: ProjectService, useClass: HttpProjectService }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

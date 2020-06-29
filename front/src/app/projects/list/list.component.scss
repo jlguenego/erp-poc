@@ -12,18 +12,28 @@ caption {
 }
 
 table {
-  border: 0.1em solid #eee;
+  border: 0.1em solid #ccc;
   border-collapse: collapse;
   max-width: 100%;
 }
 
 thead {
-  background: #eee;
+  background: #ccc;
 }
 
 td, th {
   padding: 0.5em;
   text-align: left;
 }
+
+tbody tr:nth-child(even) {
+  background: #eee;
+}
+
+tbody tr:hover {
+  background: #ddd;
+}
+
+
 
 
