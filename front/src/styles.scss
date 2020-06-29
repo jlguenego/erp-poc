@@ -51,3 +51,18 @@ button {
     }
   }
 }
+
+form {
+  display: flex;
+  flex-flow: column;
+}
+
+input {
+  border: 0.1em solid #eee;
+  padding: 0.5em 1em;
+  width: 100%;
+}
+
+label {
+  padding-bottom: 1em;
+}
