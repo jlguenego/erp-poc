@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProjectService } from './project.service';
+import { Project } from '../interfaces/project';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,34 @@ export class HttpProjectService extends ProjectService {
   }
 
   refresh() {
-    this.http.get('http://localhost:3000/ws/chantier').subscribe();
+    this.http.get<Project[]>('http://localhost:3000/ws/chantier').subscribe({
+      next: (data) => {
+        console.log('data: ', data);
+        this.projects = data;
+        this.save();
+      },
+      error: (err) => {
+        console.log('err: ', err);
+      },
+      complete: () => {
+        console.log('complete');
+      },
+    });
+  }
+
+  add(project: Project): void {
+    super.add(project);
+    this.http.post<Project>('http://localhost:3000/ws/chantier', project).subscribe({
+      next: (data) => {
+        console.log('data: ', data);
+        this.refresh();
+      },
+      error: (err) => {
+        console.log('err: ', err);
+      },
+      complete: () => {
+        console.log('complete');
+      },
+    });
   }
 }
