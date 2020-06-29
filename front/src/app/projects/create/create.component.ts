@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 const defaultValue = {
   code: '',
@@ -14,12 +15,15 @@ const defaultValue = {
 })
 export class CreateComponent implements OnInit {
   f = new FormGroup({
-    code: new FormControl(defaultValue.code, [Validators.required, Validators.maxLength(4)]),
+    code: new FormControl(defaultValue.code, [
+      Validators.required,
+      Validators.maxLength(4),
+    ]),
     label: new FormControl(defaultValue.label, [Validators.required]),
     status: new FormControl(defaultValue.status, [Validators.required]),
   });
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -29,6 +33,6 @@ export class CreateComponent implements OnInit {
 
   submit() {
     console.log('submit');
-    this.f.reset();
+    this.router.navigateByUrl('/chantiers');
   }
 }
