@@ -6,6 +6,7 @@ import { Project } from '../interfaces/project';
 })
 export class ProjectService {
   projects: Project[] = this.getProjects();
+  protected onRefreshFn: () => void;
 
   constructor() {
     console.log('start constructor', this.projects);
@@ -31,13 +32,17 @@ export class ProjectService {
   }
 
   remove(selectedProjects: Project[]) {
-    selectedProjects.forEach(p => {
-      const index = this.projects.findIndex(pr => pr === p);
+    selectedProjects.forEach((p) => {
+      const index = this.projects.findIndex((pr) => pr === p);
       if (index === -1) {
         return;
       }
       this.projects.splice(index, 1);
     });
     this.save();
+  }
+
+  onRefresh(onRefreshFn: () => void) {
+    this.onRefreshFn = onRefreshFn;
   }
 }

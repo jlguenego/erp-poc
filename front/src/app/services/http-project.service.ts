@@ -19,6 +19,7 @@ export class HttpProjectService extends ProjectService {
         console.log('data: ', data);
         this.projects = data;
         this.save();
+        this.onRefreshFn();
       },
       error: (err) => {
         console.log('err: ', err);

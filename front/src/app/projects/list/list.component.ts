@@ -12,7 +12,11 @@ export class ListComponent implements OnInit {
 
   constructor(public projectService: ProjectService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.projectService.onRefresh(() => {
+      this.selectedProjects.length = 0;
+    });
+  }
 
   toggle(p: Project): void {
     console.log('toggle', p);
