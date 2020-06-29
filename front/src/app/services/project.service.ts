@@ -5,11 +5,28 @@ import { Project } from '../interfaces/project';
   providedIn: 'root',
 })
 export class ProjectService {
-  projects: Project[] = [];
+  projects: Project[] = this.getProjects();
 
-  constructor() {}
+  constructor() {
+    console.log('start constructor', this.projects);
+  }
 
-  add(project: Project) {
+  getProjects(): Project[] {
+    console.log('start getProject');
+    const str = localStorage.getItem('projects');
+    if (!str) {
+      return [];
+    }
+    const projects = JSON.parse(str);
+    return projects;
+  }
+
+  save() {
+    localStorage.setItem('projects', JSON.stringify(this.projects));
+  }
+
+  add(project: Project): void {
     this.projects.push(project);
+    this.save();
   }
 }

@@ -19,7 +19,7 @@
       <tbody>
         <tr *ngFor="let p of projectService.projects">
           <td>{{ p.code }}</td>
-          <td>{{ p.label }}</td>
+          <td>{{ p.label | ellipsis : 15 }}</td>
           <td>{{ p.status }}</td>
         </tr>
       </tbody>
