@@ -7,20 +7,20 @@ import { LayoutModule } from './layout/layout.module';
 import { HomeComponent } from './routes/home/home.component';
 import { LegalComponent } from './routes/legal/legal.component';
 import { ProjectsModule } from './projects/projects.module';
+import { ProjectService } from './services/project.service';
+import { HttpProjectService } from './services/http-project.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LegalComponent
-  ],
+  declarations: [AppComponent, HomeComponent, LegalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LayoutModule,
-    ProjectsModule
+    ProjectsModule,
+    HttpClientModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{ provide: ProjectService, useClass: HttpProjectService }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

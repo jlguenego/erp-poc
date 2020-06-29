@@ -14,7 +14,9 @@ export const ws = async function (sequelize: Sequelize) {
 
   app.get("/date", (req, res) => res.json({ date: new Date() }));
 
-  ["facture", "engin"].forEach((name) => exposeResource(app, name));
+  ["facture", "engin"].forEach((name) =>
+    exposeResource(app, name)
+  );
 
   exposeMongoResource(app, Salarie);
 
