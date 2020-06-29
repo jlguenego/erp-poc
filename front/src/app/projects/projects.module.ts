@@ -6,7 +6,7 @@ import { ListComponent } from './list/list.component';
 import { CreateComponent } from './create/create.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { WidgetModule } from '../widget/widget.module';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [ListComponent, CreateComponent],
@@ -15,6 +15,7 @@ import { WidgetModule } from '../widget/widget.module';
     ProjectsRoutingModule,
     ReactiveFormsModule,
     WidgetModule,
-  ]
+    FontAwesomeModule,
+  ],
 })
-export class ProjectsModule { }
+export class ProjectsModule {}
