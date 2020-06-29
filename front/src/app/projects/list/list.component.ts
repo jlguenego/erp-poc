@@ -26,5 +26,7 @@ export class ListComponent implements OnInit {
 
   remove() {
     console.log('remove');
+    this.projectService.remove(this.selectedProjects);
+    this.selectedProjects.length = 0;
   }
 }

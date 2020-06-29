@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
   ],
   providers: [
-    // { provide: ProjectService, useClass: HttpProjectService }
+    { provide: ProjectService, useClass: HttpProjectService }
   ],
   bootstrap: [AppComponent],
 })

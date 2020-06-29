@@ -29,4 +29,15 @@ export class ProjectService {
     this.projects.push(project);
     this.save();
   }
+
+  remove(selectedProjects: Project[]) {
+    selectedProjects.forEach(p => {
+      const index = this.projects.findIndex(pr => pr === p);
+      if (index === -1) {
+        return;
+      }
+      this.projects.splice(index, 1);
+    });
+    this.save();
+  }
 }

@@ -48,7 +48,26 @@ export function exposeResource(app: Router, name: string, records: any[] = []) {
   });
 
   app.delete(`/${name}`, (req, res) => {
-    records.length = 0;
+    if (req.body.confirm === "DELETE ALL") {
+      records.length = 0;
+      res.status(204).end();
+      return;
+    }
+    const ids: number[] = req.body;
+    console.log("ids: ", ids);
+    if (!ids) {
+      res.status(204).end();
+      return;
+    }
+    for (const id of ids) {
+      const index = records.findIndex((r) => r.id === id);
+      console.log("index: ", index);
+      if (index === -1) {
+        return;
+      }
+      records.splice(index, 1);
+    }
+    console.log("records: ", records);
     res.status(204).end();
   });
 

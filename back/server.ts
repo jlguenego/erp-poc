@@ -1,18 +1,18 @@
 import express from "express";
 import serveIndex from "serve-index";
-// import mongoose from "mongoose";
+import mongoose from "mongoose";
 import { ws } from "./ws";
 // import { Sequelize } from "sequelize";
 
 async function main() {
   try {
-    // console.log("about to connect to mongo...");
-    // await mongoose.connect("mongodb://localhost:27017/erp-poc", {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true,
-    //   serverSelectionTimeoutMS: 5000,
-    // });
-    // console.log("connected to mongo.");
+    console.log("about to connect to mongo...");
+    await mongoose.connect("mongodb://localhost:27017/erp-poc", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 5000,
+    });
+    console.log("connected to mongo.");
 
     // console.log("about to connect to postgres...");
     // const sequelize = new Sequelize("mydb", "postgres", "admin", {

@@ -1,8 +1,8 @@
 import express from "express";
 import { exposeResource } from "./rest";
 import "./rest-mongo";
-// import { exposeMongoResource } from "./rest-mongo";
-// import { Salarie } from "./model/Salarie";
+import { exposeMongoResource } from "./rest-mongo";
+import { Salarie } from "./model/Salarie";
 import { Sequelize } from "sequelize/types";
 // import { chantier } from "./model-sequelize/Chantier";
 // import { exposeSequelizeResource } from "./rest-sequelize";
@@ -18,9 +18,17 @@ export const ws = async function (sequelize: Sequelize) {
 
   app.get("/date", (req, res) => res.json({ date: new Date() }));
 
-  ["facture", "engin", "chantier"].forEach((name) => exposeResource(app, name));
+  ["facture", "engin"].forEach((name) => exposeResource(app, name));
 
-  // exposeMongoResource(app, Salarie);
+  const chantiers = [
+    { id: 0, code: "qwer", label: "toto titi", status: "En cours" },
+    { id: 1, code: "asdf", label: "toto titi", status: "En cours" },
+    { id: 2, code: "zxcv", label: "toto titi", status: "En cours" },
+    { id: 3, code: "1234", label: "toto titi", status: "En cours" },
+  ];
+  exposeResource(app, "chantier", chantiers);
+
+  exposeMongoResource(app, Salarie);
 
   // exposeSequelizeResource(sequelize, app, chantier);
 
