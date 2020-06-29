@@ -2,9 +2,9 @@
   <h1>Liste des chantiers</h1>
   <div class="content">
     <div class="buttons">
-      <button>Rafraichir</button>
-      <button routerLink="/chantiers/nouveau">Ajouter</button>
-      <button *ngIf="selectedProjects.length > 0" (click)="remove()">Supprimer</button>
+      <button title="Rafraichir"><fa-icon [icon]="faRedo"></fa-icon></button>
+      <button routerLink="/chantiers/nouveau" title="Ajouter"><fa-icon [icon]="faPlus"></fa-icon></button>
+      <button title="Supprimer" *ngIf="selectedProjects.length > 0" (click)="remove()"><fa-icon [icon]="faTrashAlt"></fa-icon></button>
     </div>
     <table>
       <caption>

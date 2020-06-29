@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/interfaces/project';
+import { faRedo, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-list',
@@ -8,6 +9,9 @@ import { Project } from 'src/app/interfaces/project';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
+  faRedo = faRedo;
+  faPlus = faPlus;
+  faTrashAlt = faTrashAlt;
   selectedProjects: Project[] = [];
 
   constructor(public projectService: ProjectService) {}
