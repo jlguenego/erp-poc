@@ -17,6 +17,7 @@ export const ws = async function (sequelize: Sequelize) {
   app.use((req, res, next) => setTimeout(next, 2000));
 
   app.get("/date", (req, res) => res.json({ date: new Date() }));
+  app.get("/salt", (req, res) => res.json({ salt: 'mon super salt 123#' }));
 
   ["facture", "engin"].forEach((name) => exposeResource(app, name));
 
