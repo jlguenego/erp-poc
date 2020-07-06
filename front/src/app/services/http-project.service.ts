@@ -14,7 +14,7 @@ export class HttpProjectService extends ProjectService {
   }
 
   refresh() {
-    this.http.get<Project[]>('http://localhost:3000/ws/chantier').subscribe({
+    this.http.get<Project[]>('/ws/chantier').subscribe({
       next: (data) => {
         console.log('data: ', data);
         this.projects$.next(data);
@@ -31,7 +31,7 @@ export class HttpProjectService extends ProjectService {
   add(project: Project): void {
     super.add(project);
     this.http
-      .post<Project>('http://localhost:3000/ws/chantier', project)
+      .post<Project>('/ws/chantier', project)
       .subscribe({
         next: (data) => {
           console.log('data: ', data);
@@ -56,7 +56,7 @@ export class HttpProjectService extends ProjectService {
       body: ids,
     };
     this.http
-      .delete<void>('http://localhost:3000/ws/chantier', options)
+      .delete<void>('/ws/chantier', options)
       .subscribe({
         next: () => {
           this.refresh();
