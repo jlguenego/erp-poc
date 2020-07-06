@@ -17,6 +17,7 @@ export class UserService {
   // caching
   isConnected = false;
   user: User;
+  afterLoginUrl = '/';
 
   constructor(private http: HttpClient, private router: Router) {
     this.http.get<{ salt: string }>('/ws/salt').subscribe({
@@ -40,6 +41,8 @@ export class UserService {
       .subscribe({
         next: (user) => {
           this.user$.next(user);
+          this.router.navigateByUrl(this.afterLoginUrl);
+          this.afterLoginUrl = '/';
           subject.next(user);
         },
         error: (err) => {
