@@ -14,10 +14,13 @@ export const ws = async function (sequelize: Sequelize) {
   app.use(express.json());
   // app.use(cors());
 
-  app.use((req, res, next) => setTimeout(next, 2000));
+  // app.use((req, res, next) => setTimeout(next, 2000));
 
   app.get("/date", (req, res) => res.json({ date: new Date() }));
-  app.get("/salt", (req, res) => res.json({ salt: 'mon super salt 123#' }));
+  app.get("/salt", (req, res) => res.json({ salt: "mon super salt 123#" }));
+  app.post("/login", (req, res) =>
+    res.json({ login: req.body.login, displayName: "Marcel Dupont" })
+  );
 
   ["facture", "engin"].forEach((name) => exposeResource(app, name));
 
