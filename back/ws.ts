@@ -6,13 +6,13 @@ import { Salarie } from "./model/Salarie";
 import { Sequelize } from "sequelize/types";
 // import { chantier } from "./model-sequelize/Chantier";
 // import { exposeSequelizeResource } from "./rest-sequelize";
-import cors from "cors";
+// import cors from "cors";
 
 export const ws = async function (sequelize: Sequelize) {
   const app = express.Router();
 
   app.use(express.json());
-  app.use(cors());
+  // app.use(cors());
 
   app.use((req, res, next) => setTimeout(next, 2000));
 
