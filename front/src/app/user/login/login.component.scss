@@ -15,6 +15,11 @@ main {
   width: 20em;
 }
 
-button {
-  margin-top: 2em;
+.error {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 2em;
+  font-weight: bold;
+  padding-bottom: 0.5em;
 }

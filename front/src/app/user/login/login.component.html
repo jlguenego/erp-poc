@@ -1,6 +1,6 @@
 <main>
   <h1>Page de connexion</h1>
-  <form [formGroup]="f">
+  <form [formGroup]="f" (ngSubmit)="submit()">
     <label>
       <div>Identifiant</div>
       <input type="text" formControlName="login" />
@@ -9,6 +9,9 @@
       <div>Mot de passe</div>
       <input type="password" formControlName="password" />
     </label>
+    <div class="error">
+      <span>{{ error }}</span>
+    </div>
     <button [disabled]="f.invalid" class="primary">Se connecter</button>
   </form>
 </main>
