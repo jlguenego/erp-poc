@@ -10,6 +10,17 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ProjectComponent } from './project/project.component';
 import { RouterModule } from '@angular/router';
 
+export const projectRoutes = [
+  {
+    path: '', // child route path
+    component: ListComponent, // child route component that the router renders
+  },
+  {
+    path: 'nouveau',
+    component: CreateComponent, // another child route component that the router renders
+  },
+];
+
 @NgModule({
   declarations: [ListComponent, CreateComponent, ProjectComponent],
   imports: [
