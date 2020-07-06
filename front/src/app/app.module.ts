@@ -10,6 +10,7 @@ import { ProjectsModule } from './projects/projects.module';
 import { ProjectService } from './services/project.service';
 import { HttpProjectService } from './services/http-project.service';
 import { HttpClientModule } from '@angular/common/http';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LegalComponent],
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     LayoutModule,
     ProjectsModule,
     HttpClientModule,
+    UserModule,
   ],
   providers: [
     { provide: ProjectService, useClass: HttpProjectService }
