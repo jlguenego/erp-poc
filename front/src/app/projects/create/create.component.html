@@ -15,11 +15,13 @@
     </label>
     <button type="button" (click)="addKeywords()">Ajouter keywords</button>
     <div class="keywords" formArrayName="keywords">
-      <input
-        type="text"
+      <div
         *ngFor="let k of keywords.controls; let i = index"
-        [formControlName]="i"
-      />
+        [formGroupName]="i"
+      >
+        <input type="text" formControlName="key" />
+        <input type="text" formControlName="value" />
+      </div>
     </div>
     <button type="submit" [disabled]="f.invalid" class="primary">Créer</button>
     <button type="button" (click)="reset()">Annuler</button>

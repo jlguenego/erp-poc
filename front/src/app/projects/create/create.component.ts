@@ -29,7 +29,7 @@ export class CreateComponent implements OnInit {
     ]),
     label: new FormControl(defaultValue.label, [Validators.required]),
     status: new FormControl(defaultValue.status, [Validators.required]),
-    keywords: new FormArray([new FormControl('toto'), new FormControl('titi')]),
+    keywords: new FormArray([]),
   });
 
   keywords: FormArray;
@@ -51,6 +51,11 @@ export class CreateComponent implements OnInit {
   }
 
   addKeywords() {
-    this.keywords.push(new FormControl('tata'));
+    this.keywords.push(
+      new FormGroup({
+        key: new FormControl('asdf'),
+        value: new FormControl('qwer'),
+      })
+    );
   }
 }
