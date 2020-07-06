@@ -5,9 +5,11 @@ import { CreateComponent } from './create/create.component';
 import { UserGuard } from '../guards/user.guard';
 
 const routes: Routes = [
-  { path: 'chantiers', component: ListComponent, canActivate: [UserGuard] },
-  { path: 'chantiers/nouveau', component: CreateComponent, canActivate: [UserGuard] },
+  { path: 'chantiers', component: ListComponent },
+  { path: 'chantiers/nouveau', component: CreateComponent },
 ];
+
+routes.forEach((route) => (route.canActivate = [UserGuard]));
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
