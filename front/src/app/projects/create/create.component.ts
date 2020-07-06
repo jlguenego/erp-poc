@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormArray,
+  Form,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/interfaces/project';
@@ -23,9 +29,14 @@ export class CreateComponent implements OnInit {
     ]),
     label: new FormControl(defaultValue.label, [Validators.required]),
     status: new FormControl(defaultValue.status, [Validators.required]),
+    keywords: new FormArray([new FormControl('toto'), new FormControl('titi')]),
   });
 
-  constructor(private router: Router, private projectService: ProjectService) {}
+  keywords: FormArray;
+
+  constructor(private router: Router, private projectService: ProjectService) {
+    this.keywords = this.f.controls.keywords as FormArray;
+  }
 
   ngOnInit(): void {}
 
@@ -37,5 +48,9 @@ export class CreateComponent implements OnInit {
     console.log('submit');
     this.projectService.add(this.f.value as Project);
     this.router.navigateByUrl('/chantiers');
+  }
+
+  addKeywords() {
+    this.keywords.push(new FormControl('tata'));
   }
 }

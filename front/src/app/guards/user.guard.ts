@@ -25,11 +25,11 @@ export class UserGuard implements CanActivate {
     console.log('using user guard');
     console.log('next: ', next);
     console.log('state: ', state);
-    if (!this.userService.isConnected) {
-      this.router.navigateByUrl('/login');
-      this.userService.afterLoginUrl = state.url;
-      return false;
-    }
+    // if (!this.userService.isConnected) {
+    //   this.router.navigateByUrl('/login');
+    //   this.userService.afterLoginUrl = state.url;
+    //   return false;
+    // }
     return true;
   }
 }
