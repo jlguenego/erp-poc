@@ -1,14 +1,14 @@
 <main>
   <h1>Page de connexion</h1>
-  <form>
+  <form [formGroup]="f">
     <label>
       <div>Identifiant</div>
-      <input type="text" />
+      <input type="text" formControlName="login" />
     </label>
     <label>
       <div>Mot de passe</div>
-      <input type="password" />
+      <input type="password" formControlName="password" />
     </label>
-    <button class="primary">Se connecter</button>
+    <button [disabled]="f.invalid" class="primary">Se connecter</button>
   </form>
 </main>
