@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { User } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import sha1 from 'js-sha1';
-
+import { Router } from '@angular/router';
 
 console.log('sha1', sha1('1234'));
 
@@ -12,10 +12,21 @@ console.log('sha1', sha1('1234'));
 })
 export class UserService {
   salt = '';
-  constructor(private http: HttpClient) {
+  user$ = new BehaviorSubject<User>(undefined);
+
+  // caching
+  isConnected = false;
+  user: User;
+
+  constructor(private http: HttpClient, private router: Router) {
     this.http.get<{ salt: string }>('/ws/salt').subscribe({
       next: (data) => (this.salt = data.salt),
       error: (err) => console.error('no salt found'),
+    });
+
+    this.user$.subscribe((user) => {
+      this.isConnected = user !== undefined;
+      this.user = user;
     });
   }
 
@@ -28,13 +39,20 @@ export class UserService {
       })
       .subscribe({
         next: (user) => {
+          this.user$.next(user);
           subject.next(user);
         },
         error: (err) => {
           console.error('error while login', err);
+          this.user$.next(undefined);
           subject.error(err);
         },
       });
     return subject;
+  }
+
+  logout() {
+    this.user$.next(undefined);
+    this.router.navigateByUrl('/');
   }
 }

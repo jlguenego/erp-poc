@@ -3,5 +3,13 @@
     <img src="assets/logo.svg" alt="Logo Gestion de Chantier" />
     <span>Gestion de Chantier</span>
   </a>
-  <button routerLink="/login">Login</button>
+  <ng-container *ngIf="!userService.isConnected">
+    <button routerLink="/login">Login</button>
+  </ng-container>
+  <span *ngIf="userService.isConnected">
+    <span>
+      {{ userService.user.displayName }}
+    </span>
+    <button (click)="userService.logout()">Déconnexion</button>
+  </span>
 </header>
