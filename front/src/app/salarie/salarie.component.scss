@@ -1,0 +1,43 @@
+.buttons {
+  display: flex;
+  padding: 0.5em 0;
+
+  button {
+    margin-right: 0.3em;
+  }
+}
+
+caption {
+  display: none;
+}
+
+table {
+  border: 0.1em solid #bbb;
+  border-collapse: collapse;
+  max-width: 100%;
+  tbody tr {
+    cursor: pointer;
+  }
+}
+
+thead {
+  background: #bbb;
+}
+
+td,
+th {
+  padding: 0.5em;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background: #eee;
+}
+
+tbody tr:hover {
+  background: #ddd;
+}
+
+tbody tr.selected {
+  background: #ccc;
+}

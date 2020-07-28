@@ -1,1 +1,22 @@
-<p>salarie works!</p>
+<main>
+  <h1>Liste des salariés</h1>
+  <table>
+    <caption>
+      Liste des salariés
+    </caption>
+    <thead>
+      <tr>
+        <th scope="row">Code</th>
+        <th scope="row">Nom</th>
+        <th scope="row">Prenom</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of salarie$ | async">
+        <td>{{ s.code }}</td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.firstname }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>
