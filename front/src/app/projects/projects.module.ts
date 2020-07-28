@@ -1,32 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReactiveFormsModule } from '@angular/forms';
 
-// import { ProjectsRoutingModule } from './projects-routing.module';
 import { ListComponent } from './list/list.component';
 import { CreateComponent } from './create/create.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { WidgetModule } from '../widget/widget.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ProjectComponent } from './project/project.component';
-import { RouterModule } from '@angular/router';
-
-export const projectRoutes = [
-  {
-    path: '', // child route path
-    component: ListComponent, // child route component that the router renders
-  },
-  {
-    path: 'nouveau',
-    component: CreateComponent, // another child route component that the router renders
-  },
-];
+import { ProjectsRoutingModule } from './projects-routing.module';
 
 @NgModule({
-  declarations: [ListComponent, CreateComponent, ProjectComponent],
+  declarations: [ListComponent, CreateComponent],
   imports: [
     CommonModule,
-    RouterModule,
-    // ProjectsRoutingModule,
+    ProjectsRoutingModule,
     ReactiveFormsModule,
     WidgetModule,
     FontAwesomeModule,
