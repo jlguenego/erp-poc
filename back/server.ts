@@ -26,14 +26,16 @@ async function main() {
 
     const app = express();
     const port = 3000;
+    const www = "../front/dist/front";
+    // const www = "www";
 
     app.use("/ws", await ws(sequelize));
     // console.log("about to sync sequelize...");
     // await sequelize.sync({ force: false });
     // console.log("sync done...");
 
-    app.use(express.static("www"));
-    app.use(serveIndex("www"));
+    app.use(express.static(www));
+    app.use(serveIndex(www));
     app.listen(port, () =>
       console.log(`Example app listening at http://localhost:${port}`)
     );
