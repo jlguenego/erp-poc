@@ -18,6 +18,7 @@ const routes: Routes = [
     children: projectRoutes,
   },
   { path: 'login', component: LoginComponent },
+  { path: 'salarie', loadChildren: () => import('./salarie/salarie.module').then(m => m.SalarieModule) },
   { path: '**', component: PageNotFoundComponent },
 ];
 
