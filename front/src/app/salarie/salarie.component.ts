@@ -6,11 +6,10 @@ import { Store, select } from '@ngrx/store';
 import { Salarie } from '../interfaces/salarie';
 import {
   AppState,
-  selectSalarieCollection,
-  selectSalarieLoading,
 } from '../reducers';
 import { loadSalaries } from '../actions/salarie.actions';
 import { startWith } from 'rxjs/operators';
+import { selectSalarieCollection, selectSalarieLoading } from '../reducers/salarie.reducer';
 
 @Component({
   selector: 'app-salarie',
