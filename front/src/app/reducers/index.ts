@@ -3,18 +3,57 @@ import {
   ActionReducerMap,
   createFeatureSelector,
   createSelector,
-  MetaReducer
+  MetaReducer,
+  createReducer,
+  on,
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
+import { Salarie } from '../interfaces/salarie';
+import {
+  loadSalaries,
+  loadSalariesFailure,
+  loadSalariesSuccess,
+} from '../actions/salarie.actions';
 
-
-export interface State {
-
+export interface SalarieState {
+  collection: Salarie[];
 }
 
-export const reducers: ActionReducerMap<State> = {
-
+const initialSalarieState: SalarieState = {
+  collection: [{ code: 'XXX001', name: 'DUPONT', firstname: 'Marcel' }],
 };
 
+export interface AppState {
+  salarie: SalarieState;
+  // chantier: ChantierState;
+  // commande: CommandeState;
+}
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+const salarieReducer = createReducer(
+  initialSalarieState,
+  on(loadSalaries, (state, props) => {
+    console.log('reducer on loadSalarie', props);
+    return {
+      ...state,
+      collection: [{ code: 'XXX001', name: 'DUPONT', firstname: 'Jean' }],
+    };
+  }),
+  on(loadSalariesFailure, (state, props) => {
+    console.log('reducer on loadSalariesFailure', props);
+    return state;
+  }),
+  on(loadSalariesSuccess, (state, props) => {
+    console.log('reducer on loadSalariesSuccess', props);
+    return state;
+  })
+);
+
+export const reducers: ActionReducerMap<AppState> = {
+  salarie: salarieReducer,
+  // chantier: chantierReducer,
+  // commande: commandeReducer
+};
+
+export const selectSalarieCollection = (state: AppState) => state.salarie.collection;
+
+export const metaReducers: MetaReducer<AppState>[] = [];
