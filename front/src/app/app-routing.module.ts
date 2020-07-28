@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { PreloadAllModules } from '@angular/router';
+
 import { HomeComponent } from './routes/home/home.component';
 import { LegalComponent } from './routes/legal/legal.component';
 import { ProjectComponent } from './projects/project/project.component';
@@ -18,12 +20,20 @@ const routes: Routes = [
     children: projectRoutes,
   },
   { path: 'login', component: LoginComponent },
-  { path: 'salarie', loadChildren: () => import('./salarie/salarie.module').then(m => m.SalarieModule) },
+  {
+    path: 'salarie',
+    loadChildren: () =>
+      import('./salarie/salarie.module').then((m) => m.SalarieModule),
+  },
   { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: PreloadAllModules,
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
