@@ -4,8 +4,13 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 
 import { Salarie } from '../interfaces/salarie';
-import { AppState, selectSalarieCollection } from '../reducers';
+import {
+  AppState,
+  selectSalarieCollection,
+  selectSalarieLoading,
+} from '../reducers';
 import { loadSalaries } from '../actions/salarie.actions';
+import { startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-salarie',
@@ -14,10 +19,15 @@ import { loadSalaries } from '../actions/salarie.actions';
 })
 export class SalarieComponent implements OnInit {
   salarie$: Observable<Salarie[]>;
+  loading$: Observable<boolean>;
   faRedo = faRedo;
 
   constructor(private store: Store<AppState>) {
     this.salarie$ = this.store.pipe(select(selectSalarieCollection));
+    this.loading$ = this.store.pipe(
+      select(selectSalarieLoading),
+      startWith(false)
+    );
   }
 
   ngOnInit(): void {}

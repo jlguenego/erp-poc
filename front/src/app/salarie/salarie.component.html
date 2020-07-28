@@ -2,7 +2,7 @@
   <h1>Liste des salariés</h1>
   <div class="content">
     <div class="buttons">
-      <button title="Rafraichir" (click)="refresh()"><fa-icon [icon]="faRedo"></fa-icon></button>
+      <button title="Rafraichir" (click)="refresh()"><fa-icon [icon]="faRedo" [spin]="loading$ | async"></fa-icon></button>
     </div>
     <table>
       <caption>

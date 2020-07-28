@@ -1,15 +1,20 @@
 import { createAction, props } from '@ngrx/store';
+import { Salarie } from '../interfaces/salarie';
 
-export const loadSalaries = createAction(
-  '[Salarie] Load Salaries'
-);
+export enum SalarieActionType {
+  LOAD = '[Salarie] Load Salaries',
+  LOAD_SUCCESS = '[Salarie] Load Salaries Success',
+  LOAD_FAILURE = '[Salarie] Load Salaries Failure',
+}
+
+export const loadSalaries = createAction(SalarieActionType.LOAD);
 
 export const loadSalariesSuccess = createAction(
-  '[Salarie] Load Salaries Success',
-  props<{ data: any }>()
+  SalarieActionType.LOAD_SUCCESS,
+  props<{ data: Salarie[] }>()
 );
 
 export const loadSalariesFailure = createAction(
-  '[Salarie] Load Salaries Failure',
-  props<{ error: any }>()
+  SalarieActionType.LOAD_FAILURE,
+  props<{ error: Error }>()
 );
