@@ -12,9 +12,16 @@ import { HttpProjectService } from './services/http-project.service';
 import { HttpClientModule } from '@angular/common/http';
 import { UserModule } from './user/user.module';
 import { PageNotFoundComponent } from './routes/page-not-found/page-not-found.component';
+import { WidgetModule } from './widget/widget.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LegalComponent, PageNotFoundComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LegalComponent,
+    PageNotFoundComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,10 +29,10 @@ import { PageNotFoundComponent } from './routes/page-not-found/page-not-found.co
     ProjectsModule,
     HttpClientModule,
     UserModule,
+    WidgetModule,
+    ReactiveFormsModule,
   ],
-  providers: [
-    { provide: ProjectService, useClass: HttpProjectService }
-  ],
+  providers: [{ provide: ProjectService, useClass: HttpProjectService }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

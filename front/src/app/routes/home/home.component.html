@@ -1,4 +1,54 @@
 <main>
   <p>Gérer vos chantiers efficacement ;)</p>
   <button class="primary" routerLink="/chantiers">Voir les chantiers</button>
+
+  <form [formGroup]="f">
+    <label>
+      <div>Password</div>
+      <app-password>
+        <input type="password" formControlName="password" />
+      </app-password>
+    </label>
+  </form>
+
+  <app-accordeon myTitre="Titre de mon accordeon" [isCollapsed]="isCollapsed[0]" (doToggle)="togglingAccordeon($event, 0)">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa fuga
+        dolor nihil quia. Accusamus, iusto architecto delectus aliquid ipsum
+        commodi at consequuntur vero necessitatibus voluptatem, quo officia
+        voluptas labore mollitia?
+      </p>
+    </div>
+  </app-accordeon>
+  <app-accordeon myTitre="Titre de mon accordeon" [isCollapsed]="isCollapsed[1]" (doToggle)="togglingAccordeon($event, 1)">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa fuga
+        dolor nihil quia. Accusamus, iusto architecto delectus aliquid ipsum
+        commodi at consequuntur vero necessitatibus voluptatem, quo officia
+        voluptas labore mollitia?
+      </p>
+    </div>
+  </app-accordeon>
+  <app-accordeon myTitre="Titre de mon accordeon" [isCollapsed]="isCollapsed[2]" (doToggle)="togglingAccordeon($event, 2)">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa fuga
+        dolor nihil quia. Accusamus, iusto architecto delectus aliquid ipsum
+        commodi at consequuntur vero necessitatibus voluptatem, quo officia
+        voluptas labore mollitia?
+      </p>
+    </div>
+  </app-accordeon>
+  <app-accordeon myTitre="Titre de mon accordeon" [isCollapsed]="isCollapsed[3]" (doToggle)="togglingAccordeon($event, 3)">
+    <div>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa fuga
+        dolor nihil quia. Accusamus, iusto architecto delectus aliquid ipsum
+        commodi at consequuntur vero necessitatibus voluptatem, quo officia
+        voluptas labore mollitia?
+      </p>
+    </div>
+  </app-accordeon>
 </main>

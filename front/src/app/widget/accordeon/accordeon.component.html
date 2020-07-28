@@ -1,0 +1,7 @@
+<div class="title">
+  <h1>{{ myTitre }}</h1>
+  <fa-icon [icon]="isCollapsed ? faChevronDown : faChevronUp" (click)="toggle()"></fa-icon>
+</div>
+<div class="content" [class.isCollapsed]="isCollapsed">
+  <ng-content></ng-content>
+</div>

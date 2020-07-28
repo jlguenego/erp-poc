@@ -1,0 +1,19 @@
+div.content {
+  &.isCollapsed {
+    display: none;
+  }
+}
+
+.title {
+  width: 50em;
+  position: relative;
+  h1 {
+    border: 0.1em solid #aaa;
+    text-align: left;
+  }
+  fa-icon {
+    position: absolute;
+    right: 1em;
+    top: 0.5em;
+  }
+}
