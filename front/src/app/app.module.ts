@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +15,8 @@ import { UserModule } from './user/user.module';
 import { PageNotFoundComponent } from './routes/page-not-found/page-not-found.component';
 import { WidgetModule } from './widget/widget.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { reducers, metaReducers } from './reducers';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     UserModule,
     WidgetModule,
     ReactiveFormsModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+      }
+    }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [{ provide: ProjectService, useClass: HttpProjectService }],
   bootstrap: [AppComponent],
