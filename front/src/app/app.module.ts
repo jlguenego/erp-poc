@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { HomeComponent } from './routes/home/home.component';
 import { LegalComponent } from './routes/legal/legal.component';
-import { ProjectsModule } from './projects/projects.module';
 import { ProjectService } from './services/project.service';
 import { HttpProjectService } from './services/http-project.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -26,7 +25,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     LayoutModule,
-    ProjectsModule,
     HttpClientModule,
     UserModule,
     WidgetModule,
