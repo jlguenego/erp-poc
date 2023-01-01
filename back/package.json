@@ -32,9 +32,9 @@
     "@types/express": "^4.17.6",
     "@types/mongoose": "^5.7.19",
     "@types/serve-index": "^1.7.30",
-    "ts-loader": "^7.0.5",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11",
+    "ts-loader": "^9.4.2",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
     "webpack-node-externals": "^1.7.2"
   }
 }
